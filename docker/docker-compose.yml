@@ -1,0 +1,21 @@
+version: '1.1'
+
+services:
+  app:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    container_name: myapp
+    restart: always
+    working_dir: /var/www
+    volumes:
+      - ../app:/var/www
+  nginx:
+    image: nginx:1.19-alpine
+    container_name: nginx_app
+    restart: always
+    ports:
+      - "8080:80"
+    volumes:
+      - ../app:/var/www
+      - ./nginx:/etc/nginx/conf.d
